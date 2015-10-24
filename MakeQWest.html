@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Remove Markers</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: transparent;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+  
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <img src="trash.png" onclick="deleteMarkers();" width="20px" height="20px">
+     
+      <img src="usercompass.png" onclick="getit();" width="20px" height="20px">
+    <input type="text" id="text">
+    </div>
+    <div id="map"></div>
+    <p>Click on the map to add markers.</p>
+    <script>
+
+// In the following example, markers appear when the user clicks on the map.
+// The markers are stored in an array.
+// The user can then click an option to hide, show or delete the markers.
+var map;
+var markers = [];
+
+function initMap() {
+  var haightAshbury = {lat: 37.769, lng: -122.446};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+ 
+      
+      
+    document.getElementById("entry_1801456818").value=event.latLng.lat();
+     document.getElementById("entry_1412176452").value=event.latLng.lng();
+       document.getElementById("entry_464585175").value=document.getElementById("text").value;
+       document.getElementById('ss-submit').click();
+  });
+
+  // Adds a marker at the center of the map.
+  addMarker(haightAshbury);
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function getit(){
+    
+
+}
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0SAj_a48xTJmyaf3v6emh78N5M3_wQSk&signed_in=true&callback=initMap"></script>
+  </body>
+    
+    <div class="ss-form"><form action="https://docs.google.com/forms/d/1Dy85Noybe_C9sR7MBHovbvRblI0I6CsQR27kcl-Fl2o/formResponse" method="POST" id="ss-form" target="_self" onsubmit=""><ol role="list" class="ss-question-list" style="padding-left: 0">
+<div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item  ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_464585175"><div class="ss-q-title">Description
+</div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.464585175" value="" class="ss-q-short" id="entry_464585175" dir="auto" aria-label="Description  " title="">
+<div class="error-message" id="667802394_errorMessage"></div>
+<div class="required-message">This is a required question</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item  ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_1801456818"><div class="ss-q-title">Lat
+</div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.1801456818" value="" class="ss-q-short" id="entry_1801456818" dir="auto" aria-label="Lat  " title="">
+<div class="error-message" id="1641482710_errorMessage"></div>
+<div class="required-message">This is a required question</div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item  ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_1412176452"><div class="ss-q-title">Long
+</div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.1412176452" value="" class="ss-q-short" id="entry_1412176452" dir="auto" aria-label="Long  " title="">
+<div class="error-message" id="733292993_errorMessage"></div>
+<div class="required-message">This is a required question</div>
+</div></div></div>
+<input type="hidden" name="draftResponse" value="[,,&quot;-7722594897214563767&quot;]
+">
+<input type="hidden" name="pageHistory" value="0">
+
+<input type="hidden" name="fvv" value="0">
+
+
+<input type="hidden" name="fbzx" value="-7722594897214563767">
+
+<div class="ss-item ss-navigate"><table id="navigation-table"><tbody><tr><td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+<input type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
+<div class="ss-password-warning ss-secondary-text">Never submit passwords through Google Forms.</div></td>
+</tr></tbody></table></div></ol></form></div>
+</html>
