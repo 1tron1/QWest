@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+    
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>QWest</title> 
+    
+    
+    
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sheetrock/1.0.0/dist/sheetrock.min.js"></script>  
+
+    
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        margin-left: auto;
+  margin-right: auto;
+       left:30px;
+           right:auto;
+        z-index: 5;
+        background-color: #FFF;
+        padding: 5px;
+        border: 1px solid transparent;
+          opacity: .9;
+          align-content: center;
+      }
+        input{
+            border: none;
+border-color: transparent;
+            border-style:none;
+             -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+            
+    overflow: auto;
+    outline: none;
+
+        }
+        
+         #holder{
+              position: absolute;
+        top: 5px;
+        right: 0%;
+        margin-left: 0;
+        z-index: 5;
+        background-color: transparent;
+        padding: 5px;
+        border: transparent;
+          opacity: .8;
+          align-content: left;
+        }
+         
+         #holdertwo{
+              position: absolute;
+        top: 55px;
+        right: 0%;
+        margin-left: 0;
+        z-index: 5;
+        background-color: transparent;
+        padding: 5px;
+        border: transparent;
+          opacity: .8;
+          align-content: left;
+        }
+
+               statistics, tr{
+         
+    border-color: lighten(#34495E, 10%);
+  
+        }
+	statistics,  td {
+        
+    border: 0px solid grey;
+        border-radius: 5px;
+    border-collapse: separate;
+    background-color:#34495E;
+    font-family:monospace;
+         color: white;
+}
+        statistics,th{
+                border: 0px solid grey;
+        border-radius: 5px;
+    border-collapse: separate;
+    background-color:#000;
+    font-family:monospace;
+         color: white;
+            
+            
+        }
+    </style>
+    
+    
+    
+    
+</head> 
+<body onload="showtog()">
+    <div id="holder">
+    <img src="hackericon.png" width="50" height="50" align="left" onclick="showtwo()"><br>
+  
+        </div>
+    <div id="holdertwo">
+      <img src="usercompass.png" width="50" height="50" align ="left" onclick="showtog()"><br>
+    <img src="facebookapipic.jpg" width="50" height="50" align="left" onclick="gof()">
+    </div>
+    <div id="tabler">
+      <table id="statistics" class="table table-striped table-hover" ></table>
+       
+          </div>
+    
+    
+    <script>
+        
+        function showtwo(){
+            $('#holdertwo').fadeToggle(); 
+            
+        }
+     function showtog(){
+  
+ $('#tabler').fadeToggle();
+  
+
+}
+        function gof(){
+         window.open("https://m.facebook.com/buddylist.php")  ;
+        }
+        
+</script>
+    
+    
+  
+  <div id="map" style="width: 100%; height: 100%;"></div>
+
+  <script type="text/javascript">
+     /* 
+      var table = document.getElementById('tabler'), 
+    rows = table.getElementsByTagName('tr'),
+    i, j, cells, customerId;
+
+for (i = 0, j = rows.length; i < j; ++i) {
+    cells = rows[i].getElementsByTagName('td');
+    if (!cells.length) {
+        continue;
+    }
+    customerId = cells[0].innerHTML;
+}
+      */
+      
+      
+      
+      
+      
+    var locations = [
+    
+['Tisch Library',42.406561,	-71.119475	],
+['Bookstore',	42.405737	-71.120344	],
+['Dewick',	42.405294,	-71.121106	],
+['Cannon',	42.407167,	-71.119857	],
+['Campus Center',	42.405809	,-71.119681	],
+['Arts Center',	42.404755	,-71.118764	],
+['Gym'	,42.408966	,-71.114869	],
+['Residential Quad'	,42.408407	,-71.121718	],
+['Academic Quad'	,42.407583	,-71.119586]
+    ];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 3,
+      center: new google.maps.LatLng(-39.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       // disableDefaultUI: true
+    });
+      
+
+    
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    var markers = new Array();
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+      markers.push(marker);
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+            window.setTimeout(function snappy(){marker.setVisible(false);infowindow.close();}, 2000);
+            
+        }
+      })(marker, i));
+    }
+        AutoCenter();
+      map.setZoom(3);
+    function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    AutoCenter();
+ 
+ 
+   var infoWindow = new google.maps.InfoWindow({map: map});
+ if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('You');
+      map.setCenter(pos);
+        
+        
+           for (i = 0; i < locations.length; i++) {  
+         
+            if(position.coords.lat-locations[i][3]>.0002){
+             if(position.coords.long-locations[i][4]>.0002){
+             alert("Found it");
+             }
+            }
+            
+        }
+            
+        
+    
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+ 
+      map.setZoom(3);
+
+ 
+    </script>
+    
+    
+    
+    <script>
+var mySpreadsheet='https://docs.google.com/spreadsheets/d/1rXfeY0luskxIZe7jI6UCyf2DH0zTKBa-Fl6C4sDd8ZQ/edit?pli=1#gid=1687197652';
+ $('#statistics').sheetrock({
+  url: mySpreadsheet
+});
+    
+    </script>
+</body>
+</html>
